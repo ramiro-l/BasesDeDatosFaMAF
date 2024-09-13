@@ -119,8 +119,18 @@ SELECT
 FROM
     country;
 
--- TODO: CON CONSULTAS AGREGACION 
+-- CON CONSULTAS DE AGRUPACION
+SELECT
+    country.Name,
+    max(city.Population) AS country_more_population
+FROM
+    country
+    LEFT JOIN city ON country.Code = city.CountryCode
+GROUP BY
+    country.Code;
+
 -- 7
+-- CON CONSULTAS ESCALARES
 SELECT
     c.Name,
     cl.Language
@@ -166,6 +176,30 @@ GROUP BY
     Continent
 ORDER BY
     Population ASC;
+
+-- 9
+SELECT
+    Continent,
+    avg(LifeExpectancy) AS LifeExpectancy
+FROM
+    country
+WHERE
+    LifeExpectancy >= 40
+    AND LifeExpectancy <= 70
+GROUP BY
+    Continent;
+
+-- 10 Listar la cantidad máxima, mínima, promedio y suma de habitantes por continente.
+SELECT
+    Continent,
+    max(Population) AS max_population,
+    min(Population) AS min_population,
+    avg(Population) AS avg_population,
+    sum(Population) AS sum_population
+FROM
+    country
+GROUP BY
+    Continent;
 
 -- 2)
 -- 2.1 
