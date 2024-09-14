@@ -5,6 +5,7 @@
     "mtxr.sqltools-driver-mysql",
     "wayou.vscode-todo-highlight",
     "inferrinizzard.prettier-sql-vscode",
-    "vivaxy.vscode-conventional-commits"
+    "vivaxy.vscode-conventional-commits",
+    "adpyke.vscode-sql-formatter"
   ]
 }

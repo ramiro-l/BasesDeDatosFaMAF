@@ -62,7 +62,7 @@
     }
   ],
   "[sql]": {
-    "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
   },
   "editor.formatOnSave": true
 }
