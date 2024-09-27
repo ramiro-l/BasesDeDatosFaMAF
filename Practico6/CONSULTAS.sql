@@ -75,7 +75,7 @@ ORDER BY
 /*
  4. Crear un procedimiento "Update Credit" en donde se modifique el límite de crédito de un cliente con un valor pasado por parámetro.
  */
-CREATE PROCEDURE updateCredit(
+CREATE PROCEDURE update_credit(
     in customer_number int(11),
     in new_limit decimal(10, 2)
 )
@@ -86,7 +86,16 @@ SET
 WHERE
     c.customerNumber = customer_number;
 
--- TODO: PORBARLO.
+SELECT
+    c.customerNumber,
+    c.creditLimit
+FROM
+    customers AS c
+WHERE
+    c.customerNumber = 103;
+
+CALL update_credit(103, 10.00);
+
 /*
  5. Cree una vista "Premium Customers" que devuelva el top 10 de clientes que más dinero han gastado en la plataforma. La vista deberá devolver el nombre del cliente, la ciudad y el total gastado por ese cliente en la plataforma.
  */
