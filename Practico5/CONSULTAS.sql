@@ -260,11 +260,50 @@ CALL check_date_and_fine;
  13. Crear un rol `employee` que tenga acceso de inserción, eliminación y actualización a 
  la tabla `rental`.
  */
+create role `employee`;
+
+grant,
+INSERT
+,
+UPDATE
+,
+    DELETE on `rental` to `employee`;
+
+FLUSH PRIVILEGES;
+
 /*
  14. Revocar el acceso de eliminación a `employee` y crear un rol `administrator` que 
  tenga todos los privilegios sobre la BD `sakila`.
  */
+revoke
+INSERT
+,
+UPDATE
+,
+    DELETE on `rental`
+from
+    `employee`;
+
+CREATE ROLE 'administrator';
+
+GRANT ALL PRIVILEGES ON sakila.* TO 'administrator';
+
+SHOW GRANTS FOR 'administrator';
+
+FLUSH PRIVILEGES;
+
 /*
  15. Crear dos roles de empleado. A uno asignarle los permisos de `employee` y al otro 
  de `administrator`.
  */
+CREATE USER 'empleado1' @'172.17.0.1' IDENTIFIED BY '1234';
+
+CREATE USER 'empleado2' @'172.17.0.1' IDENTIFIED BY '1234';
+
+GRANT 'employee' TO 'empleado1' @'172.17.0.1';
+
+GRANT 'administrator' TO 'empleado2' @'172.17.0.1';
+
+SHOW GRANTS FOR 'empleado1' @'172.17.0.1';
+
+SHOW GRANTS FOR 'empleado2' @'172.17.0.1';
