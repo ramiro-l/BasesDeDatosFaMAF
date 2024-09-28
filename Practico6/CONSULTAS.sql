@@ -171,6 +171,63 @@ CREATE TABLE `product_refillment` (
 /*
  8. Definir un trigger "Restock Product" que esté pendiente de los cambios efectuados en `orderdetails` y cada vez que se agregue una nueva orden revise la cantidad de productos pedidos (`quantityOrdered`) y compare con la cantidad en stock (`quantityInStock`) y si es menor a 10 genere un pedido en la tabla "Product Refillment" por 10 nuevos productos.
  */
+CREATE TRIGGER `restock_products`
+AFTER
+INSERT
+    ON `orderdetails` FOR EACH ROW BEGIN DECLARE currentStock INT;
+
+SELECT
+    p.quantityInStock INTO currentStock
+FROM
+    `products` AS p
+WHERE
+    p.productCode = NEW.productCode;
+
+IF (currentStock - NEW.quantityOrdered) < 10 THEN
+INSERT INTO
+    `product_refillment` (`productCode`, `orderDate`, `quantity`)
+VALUES
+    (NEW.productCode, CURDATE(), 10);
+
+END IF;
+
+END;
+
+-- DROP trigger `restock_products`;
+-- TEST:
+-- Paso 1: verificamos que tiene product_refillment
+SELECT
+    *
+FROM
+    `product_refillment`;
+
+-- Paso 2: Obtenemos un prodcuto, copiamos su codigo y cantidad en stock
+SELECT
+    productCode,
+    quantityInStock
+FROM
+    `products`
+ORDER BY
+    quantityInStock;
+
+-- Paso 3: Insertamos una orden con cantidad menor para que se genere un pedido de 10 productos
+INSERT INTO
+    `orderdetails`(
+        `orderNumber`,
+        `productCode`,
+        `quantityOrdered`,
+        `priceEach`,
+        `orderLineNumber`
+    )
+VALUES
+    (10101, 'S24_2000', 10, 136.00, 3);
+
+-- Paso 4: verificamos que tiene product_refillment
+SELECT
+    *
+FROM
+    `product_refillment`;
+
 /*
  9. Crear un rol "Empleado" en la BD que establezca accesos de lectura a todas las tablas y accesos de creación de vistas.
  */
