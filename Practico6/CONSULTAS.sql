@@ -246,6 +246,17 @@ SHOW GRANTS FOR `Empleado`;
 /*
  1. Encontrar, para cada cliente de aquellas ciudades que comienzan por ' N ', la menor y la mayor diferencia en días entre las fechas de sus pagos. No mostrar el id del cliente, sino su nombre y el de su contacto.
  */
+-- TODO: Continuar con la consulta, nose a que se refiere con: "la menor y la mayor diferencia en días entre las fechas de sus pagos"
+SELECT
+    c.customerName,
+    c.contactLastName,
+    c.contactFirstName,
+    c.city
+FROM
+    customers AS c
+WHERE
+    c.city LIKE 'N%';
+
 /*
  2. Encontrar el nombre y la cantidad vendida total de los 10 productos más vendidos que, a su vez, representen al menos el 4% del total de productos, contando unidad por unidad, de todas las órdenes donde intervienen. No utilizar LIMIT.
  */
