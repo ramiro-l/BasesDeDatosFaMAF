@@ -231,6 +231,17 @@ FROM
 /*
  9. Crear un rol "Empleado" en la BD que establezca accesos de lectura a todas las tablas y accesos de creación de vistas.
  */
+CREATE ROLE `Empleado`;
+
+GRANT
+SELECT
+    ON classicmodels.* TO `Empleado`;
+
+GRANT CREATE VIEW ON classicmodels.* TO `Empleado`;
+
+-- TEST:
+SHOW GRANTS FOR `Empleado`;
+
 -- Consultas Adicionales
 /*
  1. Encontrar, para cada cliente de aquellas ciudades que comienzan por ' N ', la menor y la mayor diferencia en días entre las fechas de sus pagos. No mostrar el id del cliente, sino su nombre y el de su contacto.
