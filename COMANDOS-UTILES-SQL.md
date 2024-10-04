@@ -51,3 +51,4 @@ tar -xzvf archivo.tar.gz
   (si no hay coincidencia, pone NULL).
 - **JOIN**: Hace coincidir las filas de ambas tablas y
   muestra solo las que coinciden.
+- **GROUP BY**: Si le pasa varios campos, agrupa los conjuntos que coinciden los campos.
