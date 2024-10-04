@@ -46,3 +46,8 @@ tar -xzvf archivo.tar.gz
 
 - Las FOREIGN KEY siempre van referenciadas a una PRIMARY KEY.
 - Web util: [w3schools.com](https://www.w3schools.com/sql/)
+- **LEFT JOIN**: Pone todo lo de la tabla de la izq y
+  lo hace coincidir con lo de la derecha
+  (si no hay coincidencia, pone NULL).
+- **JOIN**: Hace coincidir las filas de ambas tablas y
+  muestra solo las que coinciden.
