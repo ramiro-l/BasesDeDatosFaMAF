@@ -13,6 +13,7 @@ Este repositorio contiene varios scripts para gestionar un contenedor de MongoDB
 ## Pasos para cargar una base de datos en el contenedor
 
 1. Usar `docker_mongo_setup.sh` para descargar y ejecutar un contenedor de MongoDB.
+   1. Verifica que el puerto sea el correcto. (Por defecto es 27017)
 2. Descargarse el archivo de la base de datos a cargar en el contenedor. Ej `new_db.tar.gz`.
 3. Usar `docker_copy.sh` para copiar el archivo de la base de datos al contenedor.
    1. `./docker_copy.sh new_db.tar.gz` (esto se guarda en /home)
@@ -21,8 +22,9 @@ Este repositorio contiene varios scripts para gestionar un contenedor de MongoDB
    1. `cd /home`
 6. Descomprimir el archivo de la base de datos.
    1. `tar -xvzf new_db.tar.gz`
-7. Restaurar la base de datos en MongoDB.
-   1. ` mongorestore --host localhost --drop --gzip --db new_db new_db/`\
+7. Carga la base de datos en MongoDB. El comando depende de la DB, pueden ser (mirar bien el enunciado):
+   1. ` mongorestore --host localhost --drop --gzip --db new_db new_db/`
+   2. ` mongoimport --host localhost --db new_db --collection new_collection --drop --file new_db/new_collection.json`
 8. Opcional: Borrar el archivo de la base de datos.
    1. `rm -rf new_db.tar.gz new_db`
 9. Salir del contenedor con `exit`.
