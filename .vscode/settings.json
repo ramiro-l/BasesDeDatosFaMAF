@@ -124,5 +124,6 @@
   "[sql]": {
     "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
   },
+  "mdb.confirmRunAll": false,
   "editor.formatOnSave": true
 }

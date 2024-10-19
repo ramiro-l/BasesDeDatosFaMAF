@@ -6,6 +6,8 @@
     "wayou.vscode-todo-highlight",
     "inferrinizzard.prettier-sql-vscode",
     "vivaxy.vscode-conventional-commits",
-    "adpyke.vscode-sql-formatter"
+    "adpyke.vscode-sql-formatter",
+    "mongodb.mongodb-vscode",
+    "ms-azuretools.vscode-docker"
   ]
 }
