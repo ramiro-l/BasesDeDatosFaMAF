@@ -1,6 +1,10 @@
 use("mflix");
 
 // ---------------------------------------------------------------------------------------
+//  PARTE 1
+// ---------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------
 // 1. Insertar 5 nuevos usuarios en la colección users. Para cada nuevo usuario creado,
 //    insertar al menos un comentario realizado por el usuario en la colección comments.
 // ---------------------------------------------------------------------------------------
@@ -146,7 +150,7 @@ db.comments.countDocuments({
 //    recientes realizados por el usuario con email patricia_good@fakegmail.com.
 // ---------------------------------------------------------------------------------------
 
-db.comments.findOne();
+// db.comments.findOne();
 
 db.comments
   .find(
@@ -174,29 +178,116 @@ db.comments
 //    por fecha de lanzamiento y número de votos.
 // ---------------------------------------------------------------------------------------
 
-db.movies.findOne();
+// TODO: Que seria `languages`, porque no existe (use `countries`).
 
-db.movies.find(
-  {
-    genres: { $elemMatch: ["Drama", "Action"] },
-    countries: { $size: 1 },
-  },
-  {
-    title: 1,
-    genres: 1,
-    "imdb.votes": 1,
-  }
-);
+// db.movies.find();
+
+db.movies
+  .find(
+    {
+      genres: { $all: ["Drama", "Action"] },
+      countries: { $size: 1 },
+      $or: [{ "imdb.rating": { $gt: 9 } }, { runtime: { $lte: 180 } }],
+      released: { $type: "date" },
+      "imdb.votes": { $type: "number" },
+      // TODO: Si usamos el valor, mejor verificar que sea valido el campo?
+      //       es decir del tipo que queremos.
+    },
+    {
+      title: 1,
+      genres: 1,
+      released: 1,
+      "imdb.votes": 1,
+      countries: 1,
+    }
+  )
+  .sort({ released: -1, "imdb.votes": -1 });
 
 // ---------------------------------------------------------------------------------------
-// 6. Listar el id del teatro (theaterId), estado (“location.address.state”), ciudad (“location.address.city”), y coordenadas (“location.geo.coordinates”) de los teatros que se encuentran en algunos de los estados "CA", "NY", "TX" y el nombre de la ciudades comienza con una ‘F’. Listar ordenados por estado y ciudad.
+// 6. Listar el id del teatro (theaterId), estado (“location.address.state”),
+//    ciudad(“location.address.city”), y coordenadas(“location.geo.coordinates”)
+//    de los teatros que se encuentran en algunos de los estados "CA", "NY", "TX"
+//    y el nombre de la ciudades comienza con una ‘F’. Listar ordenados por estado y ciudad.
+// ---------------------------------------------------------------------------------------
+
+// db.theaters.findOne();
+
+db.theaters
+  .find(
+    {
+      "location.address.state": { $in: ["CA", "NY", "TX"] },
+      "location.address.city": { $regex: /^F/ },
+    },
+    {
+      _id: 0,
+      theaterId: 1,
+      "location.address.state": 1,
+      "location.address.city": 1,
+      "location.geo.coordinates": 1,
+    }
+  )
+  .sort({
+    "location.address.state": 1,
+    "location.address.city": 1,
+  });
+
+// ---------------------------------------------------------------------------------------
+// 7. Actualizar los valores de los campos texto (text) y fecha (date) del comentario
+//    cuyo id es ObjectId("5b72236520a3277c015b3b73") a "mi mejor comentario"
+//    y fecha actual respectivamente.
 // ---------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------
-// 7. Actualizar los valores de los campos texto (text) y fecha (date) del comentario cuyo id es ObjectId("5b72236520a3277c015b3b73") a "mi mejor comentario" y fecha actual respectivamente.
+// 8. Actualizar el valor de la contraseña del usuario cuyo email es
+//    joel.macdonel@fakegmail.com a "some password". La misma consulta debe poder insertar
+//    un nuevo usuario en caso que el usuario no exista.Ejecute la consulta dos veces.
+//    ¿Qué operación se realiza en cada caso ? (Hint: usar upserts).
 // ---------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------
-// 8. Actualizar el valor de la contraseña del usuario cuyo email es joel.macdonel@fakegmail.com a "some password". La misma consulta debe poder insertar un nuevo usuario en caso que el usuario no exista. Ejecute la consulta dos veces. ¿Qué operación se realiza en cada caso?  (Hint: usar upserts).
+// 9. Remover todos los comentarios realizados por el usuario cuyo email es
+//    victor_patel @fakegmail.com durante el año 1980.
+// ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------------------------------------------------------------------------
+//  PARTE 2
+// ---------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------
+// 10. Listar el id del restaurante (restaurant_id) y las calificaciones de los
+//     restaurantes donde al menos una de sus calificaciones haya sido realizada
+//     entre 2014 y 2015 inclusive, y que tenga una puntuación(score)
+//     mayor a 70 y menor o igual a 90.
 // ---------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------
-// 9. Remover todos los comentarios realizados por el usuario cuyo email es victor_patel@fakegmail.com durante el año 1980.
+// 11. Agregar dos nuevas calificaciones al restaurante cuyo id es "50018608".
+//     A continuación se especifican las calificaciones a agregar en una sola consulta.
+//
+//     {
+//     	"date" : ISODate("2019-10-10T00:00:00Z"),
+//     	"grade" : "A",
+//     	"score" : 18
+//     }
+//
+//     {
+//     	"date" : ISODate("2020-02-25T00:00:00Z"),
+//     	"grade" : "A",
+//     	"score" : 21
+//     }
+//
 // ---------------------------------------------------------------------------------------
