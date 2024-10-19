@@ -6,6 +6,18 @@
 mysql -h localhost -u root -p
 ```
 
+## Para cargar un archivo SQL en MySQL desde la terminal.
+
+```bash
+mysql -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$DATABASE_NAME" < "$SQL_FILE"
+```
+
+Ejemplo:
+
+```bash
+mysql -u root -padmin world < archivo.sql
+```
+
 > Remplazar `localhost` por la dirección del servidor, `root` por el usuario que se desea usar.
 
 ## Crear una base de datos
