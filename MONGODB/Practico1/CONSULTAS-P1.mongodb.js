@@ -196,8 +196,9 @@ db.movies
       $or: [{ "imdb.rating": { $gt: 9 } }, { runtime: { $lte: 180 } }],
       released: { $type: "date" },
       "imdb.votes": { $type: "number" },
-      // TODO: Si usamos el valor, mejor verificar que sea valido el campo?
+      // NOTE: Si usamos el valor, mejor verificar que sea valido el campo?
       //       es decir del tipo que queremos.
+      // RESPUESTA: no hace falta aunque si vemos algun comportamiento raro, lo podemos hacer.
     },
     {
       title: 1,
