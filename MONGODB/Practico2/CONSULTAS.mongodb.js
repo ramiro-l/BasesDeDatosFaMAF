@@ -509,3 +509,57 @@ db.restaurants.find(
 //     HINT1. Se puede usar pipeline de agregación con la operación update
 //     HINT2. El operador $switch o $cond pueden ser de ayuda.
 // ---------------------------------------------------------------------------------------
+
+// db.restaurants.find();
+
+db.restaurants.updateMany({}, [
+  {
+    $set: {
+      average_score: {
+        $avg: "$grades.score",
+      },
+    },
+  },
+  {
+    $set: {
+      grade: {
+        $switch: {
+          branches: [
+            { case: { $gte: ["$average_score", 28] }, then: "C" }, // Para average_score >= 28
+            { case: { $gte: ["$average_score", 14] }, then: "B" }, // Para 14 <= average_score < 28
+            { case: { $gte: ["$average_score", 0] }, then: "A" }, // Para 0 <= average_score < 14
+          ],
+          default: null, // Valor por defecto si no se cumple ninguna condición
+        },
+      },
+    },
+  },
+]);
+
+// Otra solucion usando "cond" ( un poco mas feo, porque hay que anidar ):
+db.restaurants.updateMany({}, [
+  {
+    $set: {
+      average_score: {
+        $avg: "$grades.score",
+      },
+    },
+  },
+  {
+    $set: {
+      grade: {
+        $cond: {
+          if: { $gte: ["$average_score", 28] },
+          then: "C",
+          else: {
+            $cond: {
+              if: { $gte: ["$average_score", 14] },
+              then: "B",
+              else: "A", // NOTE: Quedo como default ( ie puede caer si average_score < 0)
+            },
+          },
+        },
+      },
+    },
+  },
+]);
