@@ -23,7 +23,7 @@ Este repositorio contiene varios scripts para gestionar un contenedor de MongoDB
 6. Descomprimir el archivo de la base de datos.
    1. `tar -xvzf new_db.tar.gz`
 7. Carga la base de datos en MongoDB. El comando depende de la DB, pueden ser (mirar bien el enunciado):
-   1. ` mongorestore --host localhost --drop --gzip --db new_db new_db/`
+   1. ` mongorestore --host localhost --drop --gzip --db new_db new_db`
    2. ` mongoimport --host localhost --db new_db --collection new_collection --drop --file new_db/new_collection.json`
 8. Opcional: Borrar el archivo de la base de datos.
    1. `rm -rf new_db.tar.gz new_db`
