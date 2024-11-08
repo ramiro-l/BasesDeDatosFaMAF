@@ -51,3 +51,10 @@
 { "tags": { "$elemMatch": { "$gte": 10, "$lt": 20 } } }
 { "tags": { "$size": 3 } }
 ```
+
+
+## Webs interesantes
+
+- [bson-types](https://www.mongodb.com/docs/manual/reference/bson-types/)
+
+- [jsonschemavalidator](https://www.jsonschemavalidator.net/)
