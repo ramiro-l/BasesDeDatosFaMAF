@@ -258,15 +258,15 @@ db.runCommand({
             },
         },
     },
+    validationLevel: "strict",
+    validationAction: "error",
 });
 
 // b)
 
 // Caso exitoso:
 db.sale.insertOne({
-    "saleDate": {
-        "$date": "2015-03-23T21:06:49.506Z"
-    },
+    "saleDate": ISODate("2014-02-01T00:00:00.000Z"),
     "items": [
         {
             "name": "mate",
@@ -292,26 +292,22 @@ db.sale.insertOne({
 
 // Casos de falla:
 db.sale.insertOne({
-    "saleDate": {
-        "$date": "2015-03-23T21:06:49.506Z"
-    },
+    "saleDate": ISODate("2014-02-01T00:00:00.000Z"),
     "items": [
         {
             "name": "mate",
             "tags": [
                 "office",
             ],
-            "price": {
-                "$numberDecimal": "40.01"
-            },
+            "price": 40.01,
             "quantity": 2
         }
     ],
     "storeLocation": "Cordoba",
     "customer": {
-        "gender": "EEEEEEEEEEEEEEEEEEEEE", // ACA HAY UN ERROR
+        "gender": "EEEEEEEEEEEEEEEEEEEEEe", // ACA HAY UN ERROR
         "age": 20,
-        "email": "cacho@ejemplo.com",
+        "email": "cacheo@ejemplo.com",
         "satisfaction": 4
     },
     "couponUsed": true,
